@@ -298,3 +298,15 @@ jobs:
        id: output
        run: |
          echo "url=http://$(terraform output -raw web_server_ip)" >> $GITHUB_OUTPUT
+
+     - name: Install Ansible
+       run: |
+        sudo apt update
+        sudo apt install -y ansible
+
+     - name: Clone playbook
+       run: |
+          curl -O https://raw.githubusercontent.com/mendozalv/TestingTerraAnsible/blob/main/terraform/test_playbook.yml
+     
+     - name: run Ansible Playbook
+       run: ansible-playbook -i "${{ steps.output.outputs.url }}"" test_playbook.yml
