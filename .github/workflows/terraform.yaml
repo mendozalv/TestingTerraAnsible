@@ -306,7 +306,7 @@ jobs:
 
      - name: Clone playbook
        run: |
-          curl -O https://raw.githubusercontent.com/mendozalv/TestingTerraAnsible/blob/main/terraform/test_playbook.yml
+          curl -O https://raw.githubusercontent.com/mendozalv/TestingTerraAnsible/main/terraform/test_playbook.yml
      
      - name: run Ansible Playbook
        run: ansible-playbook -i "${{ steps.output.outputs.url }}" test_playbook.yml
