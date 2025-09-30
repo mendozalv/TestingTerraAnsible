@@ -88,7 +88,7 @@ resource "aws_instance" "web" {
   }
 
   tags = {
-    Name = "MtestingTerraAnsible30"
+    Name = "MtestingTerraAnsible1"
   }
 
   user_data = <<-EOF
