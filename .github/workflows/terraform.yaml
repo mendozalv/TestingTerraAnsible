@@ -299,14 +299,17 @@ jobs:
        run: |
          echo "url=http://$(terraform output -raw web_server_ip)" >> $GITHUB_OUTPUT
 
-     - name: Install Ansible
+     - name: setup SSH key
        run: |
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > DTS0428.pem
+          chmod 600 DTS0428.pem
+
+     - name: SSH and Install Ansible
+       run: |
+        ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@${{ secrets.INSTANCE_IP }} << 'EOF'
         sudo apt update
         sudo apt install -y ansible
+        curl -O https://raw.githubusercontent.com/mendozalv/TestingTerraAnsible/main/terraform/test_playbook.yml
+        ansible-playbook test_playbook.yml
 
-     - name: Clone playbook
-       run: |
-          curl -O https://raw.githubusercontent.com/mendozalv/TestingTerraAnsible/main/terraform/test_playbook.yml
      
-     - name: run Ansible Playbook
-       run: ansible-playbook -i "${{ steps.output.outputs.url }}" test_playbook.yml

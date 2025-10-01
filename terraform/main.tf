@@ -35,7 +35,7 @@ resource "aws_security_group" "allow_ssh" {
   }
 
   ingress {
-    description = "Allow SSH from local machine IP (Zeit)"
+    description = "Allow SSH from local machine IP"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
@@ -88,7 +88,7 @@ resource "aws_instance" "web" {
   }
 
   tags = {
-    Name = "MtestingTerraAnsible2"
+    Name = "MtestingTerraAnsible3"
   }
 
   user_data = <<-EOF
