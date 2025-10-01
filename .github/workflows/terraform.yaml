@@ -306,7 +306,7 @@ jobs:
 
      - name: SSH and Install Ansible
        run: |
-        ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@${{ secrets.INSTANCE_IP }} << 'EOF'
+        ssh -o StrictHostKeyChecking=no -i DTS0428.pem ec2-user@${{ steps.output.outputs.url }} << 'EOF'
         sudo apt update
         sudo apt install -y ansible
         curl -O https://raw.githubusercontent.com/mendozalv/TestingTerraAnsible/main/terraform/test_playbook.yml
