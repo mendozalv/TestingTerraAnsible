@@ -298,6 +298,7 @@ jobs:
        id: output
        run: |
          echo "url=http://$(terraform output -raw web_server_ip)" >> $GITHUB_OUTPUT
+         echo "instance_id=$(terraform output -raw instance_id)" >> $GITHUB_OUTPUT
 
      - name: setup SSH key
        run: |
@@ -306,7 +307,7 @@ jobs:
 
      - name: SSH and Install Ansible
        run: |
-        ssh -o StrictHostKeyChecking=no -i DTS0428.pem ec2-user@${{ steps.output.outputs.url }} << 'EOF'
+        ssh -o StrictHostKeyChecking=no -i DTS0428.pem ec2-user@${{ steps.output.outputs.instance_id }} << 'EOF'
         sudo apt update
         sudo apt install -y ansible
         curl -O https://raw.githubusercontent.com/mendozalv/TestingTerraAnsible/main/terraform/test_playbook.yml
